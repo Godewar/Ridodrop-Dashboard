@@ -25,6 +25,7 @@ const ManageRate = Loadable(lazy(() => import('views/rate/ManageRate')));
 const ManageUser = Loadable(lazy(() => import('views/user/ManageUser')));
 const ManageService = Loadable(lazy(() => import('views/service/ManageService')));
 const ManageCustomer = Loadable(lazy(() => import('views/customer/ManageCustomer')));
+const CustomerDetail = Loadable(lazy(() => import('views/customer/CustomerDetail')));
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
@@ -47,18 +48,18 @@ const MainRoutes = {
         }
       ]
     },
-    {
-      path: 'AllDrivers',
-      element: <AllDrivers />
-    },
-    {
-      path: 'DriverRequest',
-      element: <DriverRequest />
-    },
-    {
-      path: 'driver/detail/:id',
-      element: <DetailDriver />
-    },
+    // {
+    //   path: 'AllDrivers',
+    //   element: <AllDrivers />
+    // },
+    // {
+    //   path: 'DriverRequest',
+    //   element: <DriverRequest />
+    // },
+    // {
+    //   path: 'driver/detail/:id',
+    //   element: <DetailDriver />
+    // },
     {
       path: 'add/admin',
       element: <AddAdmin />
@@ -67,15 +68,15 @@ const MainRoutes = {
       path: 'all/admin',
       element: <AlllAdmins />
     },
-    {
-      path: 'driver/safety',
-      element: <DriversCaution />
-    },
-    {
-      path: 'add/safety',
-      element: <AddDriverSafety />
-    },
     // {
+    //   path: 'driver/safety',
+    //   element: <DriversCaution />
+    // },
+    // {
+    //   path: 'add/safety',
+    //   element: <AddDriverSafety />
+    // },
+    // // {
     //   path: 'analytics',
     //   element: <SiteAnalytics />
     // },
@@ -102,6 +103,10 @@ const MainRoutes = {
     {
       path: 'customers',
       element: <ManageCustomer />
+    },
+    {
+      path: 'customers/:id',
+      element: <CustomerDetail />
     },
     // {
     //   path: 'typography',
