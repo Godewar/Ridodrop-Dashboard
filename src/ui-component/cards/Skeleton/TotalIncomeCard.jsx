@@ -1,24 +1,17 @@
-// material-ui
-import Card from '@mui/material/Card';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Skeleton from '@mui/material/Skeleton';
+import { Box, Skeleton } from '@mui/material';
 
-// ==============================|| SKELETON - TOTAL INCOME DARK/LIGHT CARD ||============================== //
+// ==============================|| SKELETON TOTAL INCOME CARD ||============================== //
 
-export default function TotalIncomeCard() {
-  return (
-    <Card sx={{ p: 2 }}>
-      <List sx={{ py: 0 }}>
-        <ListItem alignItems="center" disableGutters sx={{ py: 0 }}>
-          <ListItemAvatar>
-            <Skeleton variant="rectangular" width={44} height={44} />
-          </ListItemAvatar>
-          <ListItemText sx={{ py: 0 }} primary={<Skeleton variant="rectangular" height={20} />} secondary={<Skeleton variant="text" />} />
-        </ListItem>
-      </List>
-    </Card>
-  );
-}
+const SkeletonTotalIncomeCard = () => (
+  <Box sx={{ p: 2 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+      <Skeleton variant="rectangular" width={60} height={60} sx={{ borderRadius: 1 }} />
+      <Skeleton variant="rectangular" width={30} height={30} sx={{ borderRadius: 1 }} />
+    </Box>
+    <Skeleton variant="text" width="70%" height={24} sx={{ mb: 1 }} />
+    <Skeleton variant="text" width="50%" height={20} sx={{ mb: 2 }} />
+    <Skeleton variant="rectangular" width="100%" height={60} sx={{ borderRadius: 1 }} />
+  </Box>
+);
+
+export default SkeletonTotalIncomeCard; 

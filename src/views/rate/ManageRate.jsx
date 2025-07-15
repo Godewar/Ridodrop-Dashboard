@@ -1,279 +1,122 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Card, CardContent, Typography, Tabs, Tab, Grid, TextField, Button, MenuItem, InputLabel, Select, FormControl, Snackbar, Alert, CircularProgress, Autocomplete } from '@mui/material';
-import { Search as SearchIcon, Delete as DeleteIcon, AttachMoney } from '@mui/icons-material';
+import React, { useState } from 'react';
+import { Box, Typography, List, ListItemButton, ListItemIcon, ListItemText, Avatar, Tabs, Tab } from '@mui/material';
+import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
+import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import ElectricRickshawIcon from '@mui/icons-material/ElectricRickshaw';
 
-const vehicleTypes = ['2W', '3W', 'Truck'];
-const cityOptions = ['Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Kolkata'];
+const vehicleTypes = [
+  { label: '2W', icon: <DirectionsBikeIcon fontSize="medium" /> },
+  { label: '3W', icon: <AirportShuttleIcon fontSize="medium" /> },
+  { label: 'Truck', icon: <LocalShippingIcon fontSize="medium" /> },
+  { label: 'E-Loader', icon: <ElectricRickshawIcon fontSize="medium" /> },
+];
 
-function TabPanel({ children, value, index }) {
-  return (
-    <div hidden={value !== index}>
-      {value === index && <Box sx={{ p: 2 }}>{children}</Box>}
-    </div>
-  );
-}
-
-const initialRate = {
-  type: '',
-  rate: '',
-  city: '',
-};
-
-// Mock API
-const mockApi = {
-  rates: [
-    { id: 1, type: '2W', rate: 10, city: 'Delhi' },
-    { id: 2, type: '3W', rate: 15, city: 'Mumbai' },
-    { id: 3, type: 'Truck', rate: 25, city: 'Bangalore' },
-  ],
-  fetchRates: function (search = '') {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (!search) resolve(this.rates);
-        else resolve(this.rates.filter((r) => r.type.toLowerCase().includes(search.toLowerCase()) || r.city.toLowerCase().includes(search.toLowerCase())));
-      }, 500);
-    });
-  },
-  addRate: function (rate) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const newRate = { ...rate, id: Date.now() };
-        this.rates.push(newRate);
-        resolve(newRate);
-      }, 700);
-    });
-  },
-  updateRate: function (id, rate) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const idx = this.rates.findIndex((r) => r.id === id);
-        if (idx === -1) return reject('Rate not found');
-        this.rates[idx] = { ...this.rates[idx], ...rate };
-        resolve(this.rates[idx]);
-      }, 700);
-    });
-  },
-  deleteRate: function (id) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const idx = this.rates.findIndex((r) => r.id === id);
-        if (idx === -1) return reject('Rate not found');
-        this.rates.splice(idx, 1);
-        resolve();
-      }, 700);
-    });
-  },
+const subTypeOptions = {
+  '2W': ['Bike', 'Scooter', 'Electric Bike'],
+  '3W': ['Petrol', 'Diesel', 'Electric'],
+  'Truck': ['Petrol', 'Diesel'],
+  'E-Loader': ['E-Loader'],
 };
 
 const ManageRate = () => {
-  const [tab, setTab] = useState(0);
-  const [rate, setRate] = useState(initialRate);
-  const [rates, setRates] = useState([]);
-  const [selectedRate, setSelectedRate] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [subTypeIdx, setSubTypeIdx] = useState(0);
+  const selectedType = vehicleTypes[selectedIdx].label;
+  const subTypes = subTypeOptions[selectedType];
 
-  // Fetch rates for Update/Delete
-  useEffect(() => {
-    setLoading(true);
-    mockApi.fetchRates().then((data) => {
-      setRates(data);
-      setLoading(false);
-    });
-  }, [tab]);
-
-  const handleTabChange = (e, newValue) => {
-    setTab(newValue);
-    setRate(initialRate);
-    setSelectedRate(null);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setRate((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleAddRate = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await mockApi.addRate(rate);
-      setSnackbar({ open: true, message: 'Rate added successfully!', severity: 'success' });
-      setRate(initialRate);
-    } catch {
-      setSnackbar({ open: true, message: 'Failed to add rate.', severity: 'error' });
-    }
-    setLoading(false);
-  };
-
-  const handleUpdateRate = async (e) => {
-    e.preventDefault();
-    if (!selectedRate) return;
-    setLoading(true);
-    try {
-      await mockApi.updateRate(selectedRate.id, rate);
-      setSnackbar({ open: true, message: 'Rate updated successfully!', severity: 'success' });
-      setRate(initialRate);
-      setSelectedRate(null);
-    } catch {
-      setSnackbar({ open: true, message: 'Failed to update rate.', severity: 'error' });
-    }
-    setLoading(false);
-  };
-
-  const handleDeleteRate = async (e) => {
-    e.preventDefault();
-    if (!selectedRate) return;
-    setLoading(true);
-    try {
-      await mockApi.deleteRate(selectedRate.id);
-      setSnackbar({ open: true, message: 'Rate deleted successfully!', severity: 'info' });
-      setSelectedRate(null);
-    } catch {
-      setSnackbar({ open: true, message: 'Failed to delete rate.', severity: 'error' });
-    }
-    setLoading(false);
-  };
-
-  // When selecting a rate for update, fill the form
-  useEffect(() => {
-    if (tab === 1 && selectedRate) {
-      setRate({
-        type: selectedRate.type,
-        rate: selectedRate.rate,
-        city: selectedRate.city,
-      });
-    }
-  }, [selectedRate, tab]);
+  // Reset subType index when vehicle type changes
+  React.useEffect(() => {
+    setSubTypeIdx(0);
+  }, [selectedIdx]);
 
   return (
-    <Box sx={{ maxWidth: 900, mx: 'auto', mt: 5, p: { xs: 1, md: 3 } }}>
-      <Card sx={{ boxShadow: 4, borderRadius: 3, p: { xs: 2, md: 4 } }}>
-        <CardContent>
-          <Typography variant="h4" align="center" color="primary" gutterBottom>
-            Manage Rate
+    <Box sx={{ width: '100vw', minHeight: '100vh', display: 'flex', flexDirection: 'column', mt: 5 }}>
+      <Typography variant="h4" color="primary" sx={{ mb: 3, ml: 2 }}>
+        Manage Price
           </Typography>
-          <Tabs value={tab} onChange={handleTabChange} centered sx={{ mb: 3 }}>
-            <Tab label="Add Rate" />
-            <Tab label="Update Rate" />
-            <Tab label="Delete Rate" />
-          </Tabs>
-
-          {/* Add Rate */}
-          <TabPanel value={tab} index={0}>
-            <form onSubmit={handleAddRate}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={4}>
-                  <FormControl fullWidth required>
-                    <InputLabel>Type of Vehicle</InputLabel>
-                    <Select name="type" value={rate.type} label="Type of Vehicle" onChange={handleInputChange}>
-                      {vehicleTypes.map((type) => (
-                        <MenuItem key={type} value={type}>{type}</MenuItem>
+      <Box sx={{ display: 'flex', flex: 1, width: '100vw', justifyContent: 'center', alignItems: 'flex-start' }}>
+        {/* Sidebar inside a single white card */}
+        <Box sx={{ minWidth: 200, mr: 2, pt: 2 }}>
+          <Box sx={{ bgcolor: 'white', boxShadow: 4, borderRadius: 3, p: 2, minWidth: 180 }}>
+            <List sx={{ p: 0 }}>
+              {vehicleTypes.map((type, idx) => (
+                <Box key={type.label} sx={{ mb: 0.5, display: 'flex', alignItems: 'flex-start', position: 'relative' }}>
+                  <ListItemButton
+                    selected={selectedIdx === idx}
+                    onClick={() => setSelectedIdx(idx)}
+                    sx={{
+                      borderRadius: 1,
+                      color: selectedIdx === idx ? 'primary.main' : 'text.primary',
+                      bgcolor: selectedIdx === idx ? 'primary.lighter' : 'transparent',
+                      fontWeight: selectedIdx === idx ? 700 : 400,
+                      boxShadow: selectedIdx === idx ? 2 : 0,
+                      transition: 'all 0.2s',
+                      minHeight: 40,
+                      pl: 1.5,
+                      pr: 1.5,
+                      alignItems: 'center',
+                    }}
+                  >
+                    <ListItemIcon sx={{ minWidth: 32, color: selectedIdx === idx ? 'primary.main' : 'grey.500' }}>
+                      {type.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={type.label} primaryTypographyProps={{ fontSize: 15 }} />
+                  </ListItemButton>
+                  {/* Show sub-type buttons to the right of the selected sidebar item only */}
+                  {selectedIdx === idx && (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, ml: 2, position: 'relative', zIndex: 1 }}>
+                      {subTypeOptions[type.label].map((sub, subIdx) => (
+                        <Box
+                          key={sub}
+                          sx={{
+                            bgcolor: 'white',
+                            borderRadius: 2,
+                            boxShadow: subIdx === subTypeIdx ? 4 : 1,
+                            border: subIdx === subTypeIdx ? '2px solid #1976d2' : '1px solid #eee',
+                            transition: 'all 0.2s',
+                            minWidth: 90,
+                            minHeight: 36,
+                            px: 2,
+                            py: 1.5,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            fontWeight: subIdx === subTypeIdx ? 700 : 400,
+                            color: subIdx === subTypeIdx ? 'primary.main' : 'text.primary',
+                            fontSize: 15,
+                          }}
+                          onClick={() => setSubTypeIdx(subIdx)}
+                        >
+                          {sub}
+                        </Box>
                       ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <TextField label="Rate per km" name="rate" value={rate.rate} onChange={handleInputChange} fullWidth required type="number" InputProps={{ startAdornment: <AttachMoney /> }} />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <FormControl fullWidth required>
-                    <InputLabel>City</InputLabel>
-                    <Select name="city" value={rate.city} label="City" onChange={handleInputChange}>
-                      {cityOptions.map((city) => (
-                        <MenuItem key={city} value={city}>{city}</MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <Button type="submit" variant="contained" color="primary" fullWidth size="large" disabled={loading}>
-                    {loading ? <CircularProgress size={24} /> : 'Add Rate'}
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </TabPanel>
-
-          {/* Update Rate */}
-          <TabPanel value={tab} index={1}>
-            <Autocomplete
-              options={rates}
-              getOptionLabel={(option) => `${option.type} - ${option.city}`}
-              value={selectedRate}
-              onChange={(e, newValue) => setSelectedRate(newValue)}
-              renderInput={(params) => (
-                <TextField {...params} label="Search Rate" fullWidth InputProps={{ ...params.InputProps, startAdornment: <SearchIcon sx={{ mr: 1 }} /> }} />
-              )}
-              sx={{ mb: 2 }}
-              loading={loading}
-            />
-            {selectedRate && (
-              <form onSubmit={handleUpdateRate}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={4}>
-                    <FormControl fullWidth required>
-                      <InputLabel>Type of Vehicle</InputLabel>
-                      <Select name="type" value={rate.type} label="Type of Vehicle" onChange={handleInputChange}>
-                        {vehicleTypes.map((type) => (
-                          <MenuItem key={type} value={type}>{type}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <TextField label="Rate per km" name="rate" value={rate.rate} onChange={handleInputChange} fullWidth required type="number" InputProps={{ startAdornment: <AttachMoney /> }} />
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <FormControl fullWidth required>
-                      <InputLabel>City</InputLabel>
-                      <Select name="city" value={rate.city} label="City" onChange={handleInputChange}>
-                        {cityOptions.map((city) => (
-                          <MenuItem key={city} value={city}>{city}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Button type="submit" variant="contained" color="secondary" fullWidth size="large" disabled={loading}>
-                      {loading ? <CircularProgress size={24} /> : 'Update Rate'}
-                    </Button>
-                  </Grid>
-                </Grid>
-              </form>
-            )}
-          </TabPanel>
-
-          {/* Delete Rate */}
-          <TabPanel value={tab} index={2}>
-            <Autocomplete
-              options={rates}
-              getOptionLabel={(option) => `${option.type} - ${option.city}`}
-              value={selectedRate}
-              onChange={(e, newValue) => setSelectedRate(newValue)}
-              renderInput={(params) => (
-                <TextField {...params} label="Search Rate" fullWidth InputProps={{ ...params.InputProps, startAdornment: <SearchIcon sx={{ mr: 1 }} /> }} />
-              )}
-              sx={{ mb: 2 }}
-              loading={loading}
-            />
-            <form onSubmit={handleDeleteRate}>
-              <Grid container spacing={2} alignItems="center">
-                <Grid item xs={12}>
-                  <Button type="submit" variant="contained" color="error" fullWidth size="large" startIcon={<DeleteIcon />} disabled={!selectedRate || loading}>
-                    {loading ? <CircularProgress size={24} /> : 'Delete Rate'}
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </TabPanel>
-        </CardContent>
-      </Card>
-      <Snackbar open={snackbar.open} autoHideDuration={3000} onClose={() => setSnackbar({ ...snackbar, open: false })}>
-        <Alert onClose={() => setSnackbar({ ...snackbar, open: false })} severity={snackbar.severity} sx={{ width: '100%' }}>
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+                    </Box>
+                  )}
+                </Box>
+              ))}
+            </List>
+          </Box>
+        </Box>
+        {/* Main Content: Show selected vehicle type avatar and info directly on the page */}
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', pt: 4 }}>
+          <Avatar sx={{ bgcolor: 'white', color: 'primary.main', mb: 2, width: 80, height: 80, mx: 'auto' }}>
+            {vehicleTypes[selectedIdx].icon}
+          </Avatar>
+          <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
+            {vehicleTypes[selectedIdx].label}
+          </Typography>
+          <Box sx={{ mt: 3 }}>
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>
+              {subTypes[subTypeIdx]}
+            </Typography>
+            <Typography variant="body1" sx={{ opacity: 0.85, mt: 1 }}>
+              Price management for {subTypes[subTypeIdx]} will be available here.
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
     </Box>
   );
 };

@@ -1,41 +1,35 @@
-// material-ui
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Grid from '@mui/material/Grid';
-import Skeleton from '@mui/material/Skeleton';
-
-// project imports
-import { gridSpacing } from 'store/constant';
+import { Box, Skeleton } from '@mui/material';
 
 // ==============================|| SKELETON TOTAL GROWTH BAR CHART ||============================== //
 
-export default function TotalGrowthBarChart() {
-  return (
-    <Card>
-      <CardContent>
-        <Grid container spacing={gridSpacing}>
-          <Grid size={12}>
-            <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-              <Grid size="grow">
-                <Grid container spacing={1}>
-                  <Grid size={12}>
-                    <Skeleton variant="text" />
-                  </Grid>
-                  <Grid size={12}>
-                    <Skeleton variant="rectangular" height={20} />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid>
-                <Skeleton variant="rectangular" height={50} width={80} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid size={12}>
-            <Skeleton variant="rectangular" height={530} />
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
-  );
-}
+const SkeletonTotalGrowthBarChart = () => (
+  <Box sx={{ p: 2 }}>
+    <Skeleton variant="text" width="60%" height={24} sx={{ mb: 2 }} />
+    <Skeleton variant="text" width="40%" height={20} sx={{ mb: 3 }} />
+    
+    {/* Chart skeleton */}
+    <Box sx={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', height: 200, mb: 2 }}>
+      <Skeleton variant="rectangular" width={30} height="60%" sx={{ borderRadius: 1 }} />
+      <Skeleton variant="rectangular" width={30} height="80%" sx={{ borderRadius: 1 }} />
+      <Skeleton variant="rectangular" width={30} height="40%" sx={{ borderRadius: 1 }} />
+      <Skeleton variant="rectangular" width={30} height="90%" sx={{ borderRadius: 1 }} />
+      <Skeleton variant="rectangular" width={30} height="70%" sx={{ borderRadius: 1 }} />
+      <Skeleton variant="rectangular" width={30} height="50%" sx={{ borderRadius: 1 }} />
+      <Skeleton variant="rectangular" width={30} height="85%" sx={{ borderRadius: 1 }} />
+    </Box>
+    
+    {/* Legend skeleton */}
+    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Skeleton variant="rectangular" width={12} height={12} sx={{ mr: 1, borderRadius: 0.5 }} />
+        <Skeleton variant="text" width={60} height={16} />
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Skeleton variant="rectangular" width={12} height={12} sx={{ mr: 1, borderRadius: 0.5 }} />
+        <Skeleton variant="text" width={60} height={16} />
+      </Box>
+    </Box>
+  </Box>
+);
+
+export default SkeletonTotalGrowthBarChart; 

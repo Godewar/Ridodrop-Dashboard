@@ -5,7 +5,7 @@ import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 import AddAdmin from './AddAdmin';
 import AlllAdmins from './AlllAdmins';
-import AddDriverSafety from './AddDriverSafety';
+// import AddDriverSafety from './AddDriverSafety';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -15,17 +15,22 @@ const SiteAnalytics = Loadable(lazy(() => import('views/dashboard/SiteAnalytics'
 // const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')));
 // const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
 // const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
-const AllDrivers = Loadable(lazy(() => import('../routes/AllDrivers')));
-const DetailDriver = Loadable(lazy(() => import('../routes/DriverDetail')));
-const DriverRequest = Loadable(lazy(() => import('../routes/DriverRequests')));
-const DriversCaution = Loadable(lazy(() => import('../routes/DriversCaution')));
+// const AllDrivers = Loadable(lazy(() => import('../routes/AllDrivers')));
+// const DetailDriver = Loadable(lazy(() => import('../routes/DriverDetail')));
+// const DriverRequest = Loadable(lazy(() => import('../routes/DriverRequests')));
+// const DriversCaution = Loadable(lazy(() => import('../routes/DriversCaution')));
 const ManageDriver = Loadable(lazy(() => import('views/driver/ManageDriver')));
+const DriverDetail = Loadable(lazy(() => import('views/driver/DriverDetail')));
 const ManageVehicle = Loadable(lazy(() => import('views/vehicle/ManageVehicle')));
 const ManageRate = Loadable(lazy(() => import('views/rate/ManageRate')));
 const ManageUser = Loadable(lazy(() => import('views/user/ManageUser')));
 const ManageService = Loadable(lazy(() => import('views/service/ManageService')));
 const ManageCustomer = Loadable(lazy(() => import('views/customer/ManageCustomer')));
 const CustomerDetail = Loadable(lazy(() => import('views/customer/CustomerDetail')));
+const CustomerOrders = Loadable(lazy(() => import('views/customer/CustomerOrders')));
+const OrderDetails = Loadable(lazy(() => import('views/order/OrderDetails')));
+const ManageOrder = Loadable(lazy(() => import('views/order/ManageOrder')));
+const CustomerWallet = Loadable(lazy(() => import('views/customer/CustomerWallet')));
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
@@ -85,6 +90,10 @@ const MainRoutes = {
       element: <ManageDriver />
     },
     {
+      path: 'drivers/:id',
+      element: <DriverDetail />
+    },
+    {
       path: 'vehicles',
       element: <ManageVehicle />
     },
@@ -107,6 +116,22 @@ const MainRoutes = {
     {
       path: 'customers/:id',
       element: <CustomerDetail />
+    },
+    {
+      path: 'customers/:customerId/orders',
+      element: <CustomerOrders />
+    },
+    {
+      path: 'customers/:customerId/wallet',
+      element: <CustomerWallet />
+    },
+    {
+      path: 'orders',
+      element: <OrderDetails />
+    },
+    {
+      path: 'manage-orders',
+      element: <ManageOrder />
     },
     // {
     //   path: 'typography',

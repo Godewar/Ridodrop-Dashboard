@@ -1,45 +1,44 @@
-import PropTypes from 'prop-types';
+import { forwardRef } from 'react';
 
 // material-ui
-import Collapse from '@mui/material/Collapse';
-import Fade from '@mui/material/Fade';
-import Grow from '@mui/material/Grow';
-import Slide from '@mui/material/Slide';
-import Zoom from '@mui/material/Zoom';
-import Box from '@mui/material/Box';
+import { Slide, Zoom, Fade, Grow, Collapse } from '@mui/material';
 
-function Transitions({ children, position = 'top-left', sx, type = 'grow', direction = 'up', ref, ...others }) {
+// ==============================|| TRANSITIONS ||============================== //
+
+const Transitions = forwardRef(({ children, position = 'top-left', type = 'grow', direction = 'up', ...others }, ref) => {
   let positionSX = {
     transformOrigin: '0 0 0'
   };
 
   switch (position) {
     case 'top-right':
-      positionSX = {
-        transformOrigin: 'top right'
-      };
-      break;
     case 'top':
+    case 'top-left':
       positionSX = {
-        transformOrigin: 'top'
-      };
-      break;
-    case 'bottom-left':
-      positionSX = {
-        transformOrigin: 'bottom left'
+        transformOrigin: '0 0 0'
       };
       break;
     case 'bottom-right':
-      positionSX = {
-        transformOrigin: 'bottom right'
-      };
-      break;
     case 'bottom':
+    case 'bottom-left':
       positionSX = {
-        transformOrigin: 'bottom'
+        transformOrigin: '0 100% 0'
       };
       break;
-    case 'top-left':
+    case 'right-top':
+    case 'right':
+    case 'right-bottom':
+      positionSX = {
+        transformOrigin: '100% 0 0'
+      };
+      break;
+    case 'left-top':
+    case 'left':
+    case 'left-bottom':
+      positionSX = {
+        transformOrigin: '0 0 0'
+      };
+      break;
     default:
       positionSX = {
         transformOrigin: '0 0 0'
@@ -48,10 +47,10 @@ function Transitions({ children, position = 'top-left', sx, type = 'grow', direc
   }
 
   return (
-    <Box ref={ref}>
+    <div ref={ref}>
       {type === 'grow' && (
         <Grow {...others}>
-          <Box sx={positionSX}>{children}</Box>
+          <div style={positionSX}>{children}</div>
         </Grow>
       )}
       {type === 'collapse' && (
@@ -68,7 +67,7 @@ function Transitions({ children, position = 'top-left', sx, type = 'grow', direc
             exit: 400
           }}
         >
-          <Box sx={positionSX}>{children}</Box>
+          <div style={positionSX}>{children}</div>
         </Fade>
       )}
       {type === 'slide' && (
@@ -81,25 +80,18 @@ function Transitions({ children, position = 'top-left', sx, type = 'grow', direc
           }}
           direction={direction}
         >
-          <Box sx={positionSX}>{children}</Box>
+          <div style={positionSX}>{children}</div>
         </Slide>
       )}
       {type === 'zoom' && (
         <Zoom {...others}>
-          <Box sx={positionSX}>{children}</Box>
+          <div style={positionSX}>{children}</div>
         </Zoom>
       )}
-    </Box>
+    </div>
   );
-}
+});
 
-export default Transitions;
+Transitions.displayName = 'Transitions';
 
-Transitions.propTypes = {
-  children: PropTypes.node,
-  position: PropTypes.string,
-  sx: PropTypes.any,
-  type: PropTypes.string,
-  direction: PropTypes.oneOf(['up', 'right', 'left', 'down']),
-  others: PropTypes.any
-};
+export default Transitions; 

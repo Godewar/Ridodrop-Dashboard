@@ -1,64 +1,77 @@
+import { forwardRef } from 'react';
+
 // material-ui
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 // constant
-const headerStyle = {
+const headerSX = {
   '& .MuiCardHeader-action': { mr: 0 }
 };
 
-const MainCard = function MainCard({
-  border = false,
-  boxShadow,
-  children,
-  content = true,
-  contentClass = '',
-  contentSX = {},
-  headerSX = {},
-  darkTitle,
-  secondary,
-  shadow,
-  sx = {},
-  title,
-  ref,
-  ...others
-}) {
-  const defaultShadow = '0 2px 14px 0 rgb(32 40 45 / 8%)';
+// ==============================|| MAIN CARD ||============================== //
 
-  return (
-    <Card
-      ref={ref}
-      {...others}
-      sx={{
-        border: border ? '1px solid' : 'none',
-        borderColor: 'divider',
-        ':hover': {
-          boxShadow: boxShadow ? shadow || defaultShadow : 'inherit'
-        },
-        ...sx
-      }}
-    >
-      {/* card header and action */}
-      {!darkTitle && title && <CardHeader sx={{ ...headerStyle, ...headerSX }} title={title} action={secondary} />}
-      {darkTitle && title && (
-        <CardHeader sx={{ ...headerStyle, ...headerSX }} title={<Typography variant="h3">{title}</Typography>} action={secondary} />
-      )}
+const MainCard = forwardRef(
+  (
+    {
+      border = true,
+      boxShadow,
+      children,
+      content = true,
+      contentClass = '',
+      contentSX = {},
+      darkTitle,
+      elevation,
+      secondary,
+      shadow,
+      sx = {},
+      title,
+      ...others
+    },
+    ref
+  ) => {
+    return (
+      <Card
+        elevation={elevation || 0}
+        ref={ref}
+        {...others}
+        sx={{
+          ...sx,
+          border: border ? '1px solid' : 'none',
+          borderRadius: 2,
+          borderColor: 'divider',
+          boxShadow: boxShadow && shadow ? shadow : 'custom',
+          '& pre': {
+            m: 0,
+            p: '16px !important',
+            fontFamily: 'monospace',
+            fontSize: '0.75rem'
+          }
+        }}
+      >
+        {/* card header and action */}
+        {!darkTitle && title && (
+          <CardHeader
+            sx={headerSX}
+            title={typeof title === 'string' ? <Typography variant="h6">{title}</Typography> : title}
+            action={secondary}
+          />
+        )}
 
-      {/* content & header divider */}
-      {title && <Divider />}
+        {/* content & header divider */}
+        {title && <Divider />}
 
-      {/* card content */}
-      {content && (
-        <CardContent sx={contentSX} className={contentClass}>
-          {children}
-        </CardContent>
-      )}
-      {!content && children}
-    </Card>
-  );
-};
+        {/* card content */}
+        {content && (
+          <CardContent sx={contentSX} className={contentClass}>
+            {children}
+          </CardContent>
+        )}
+        {!content && children}
+      </Card>
+    );
+  }
+);
 
-export default MainCard;
+MainCard.displayName = 'MainCard';
+
+export default MainCard; 

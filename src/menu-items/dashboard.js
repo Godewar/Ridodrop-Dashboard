@@ -29,14 +29,14 @@ const dashboard = {
       icon: icons.IconDashboard,
       breadcrumbs: false
     },
-    {
-      id: 'site-analytics',
-      title: 'Site Analytics',
-      type: 'item',
-      url: '/analytics',
-      icon: icons.IconChartBar,
-      breadcrumbs: false
-    },
+    // {
+    //   id: 'site-analytics',
+    //   title: 'Site Analytics',
+    //   type: 'item',
+    //   url: '/analytics',
+    //   icon: icons.IconChartBar,
+    //   breadcrumbs: false
+    // },
     {
       id: 'manage-driver',
       title: 'Manage Driver',
@@ -55,7 +55,7 @@ const dashboard = {
     },
     {
       id: 'manage-rates',
-      title: 'Manage Rates',
+      title: 'Manage Price',
       type: 'item',
       url: '/rates',
       icon: icons.IconCurrencyDollar,
@@ -78,6 +78,14 @@ const dashboard = {
       breadcrumbs: false
     },
     {
+      id: 'manage-order',
+      title: 'Analyze Order',
+      type: 'item',
+      url: '/manage-orders',
+      icon: icons.IconTruck,
+      breadcrumbs: false
+    },
+    {
       id: 'manage-service',
       title: 'Manage Service',
       type: 'item',
@@ -86,8 +94,8 @@ const dashboard = {
       breadcrumbs: false
     },
     {
-      id: 'website-settings',
-      title: 'Website Settings',
+      id: 'App-settings',
+      title: 'App Settings',
       type: 'item',
       url: '/settings',
       icon: icons.IconSettings,

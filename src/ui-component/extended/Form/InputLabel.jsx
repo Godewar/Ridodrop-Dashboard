@@ -1,22 +1,16 @@
-import PropTypes from 'prop-types';
+import { forwardRef } from 'react';
+
 // material-ui
-import { experimentalStyled as styled } from '@mui/material/styles';
-import MuiInputLabel from '@mui/material/InputLabel';
+import { InputLabel as MuiInputLabel } from '@mui/material';
 
-const BInputLabel = styled((props) => <MuiInputLabel {...props} />, {
-  shouldForwardProp: (prop) => prop !== 'horizontal'
-})(({ theme, horizontal }) => ({
-  color: theme.palette.text.primary,
-  fontWeight: 500,
-  marginBottom: horizontal ? 0 : 8
-}));
+// ==============================|| INPUT LABEL ||============================== //
 
-export default function InputLabel({ children, horizontal = false, ...others }) {
-  return (
-    <BInputLabel horizontal={horizontal} {...others}>
-      {children}
-    </BInputLabel>
-  );
-}
+const InputLabel = forwardRef(({ children, ...others }, ref) => (
+  <MuiInputLabel ref={ref} {...others}>
+    {children}
+  </MuiInputLabel>
+));
 
-InputLabel.propTypes = { children: PropTypes.any, horizontal: PropTypes.bool, others: PropTypes.any };
+InputLabel.displayName = 'InputLabel';
+
+export default InputLabel; 

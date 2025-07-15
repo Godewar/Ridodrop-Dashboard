@@ -1,157 +1,32 @@
-// material-ui
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Grid from '@mui/material/Grid';
-import Skeleton from '@mui/material/Skeleton';
+import { Box, Skeleton } from '@mui/material';
 
-// project imports
-import { gridSpacing } from 'store/constant';
+// ==============================|| SKELETON POPULAR CARD ||============================== //
 
-// ==============================|| SKELETON - POPULAR CARD ||============================== //
+const SkeletonPopularCard = () => (
+  <Box sx={{ p: 2 }}>
+    <Skeleton variant="text" width="70%" height={24} sx={{ mb: 2 }} />
+    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      <Skeleton variant="circular" width={40} height={40} sx={{ mr: 2 }} />
+      <Box sx={{ flex: 1 }}>
+        <Skeleton variant="text" width="60%" height={20} sx={{ mb: 0.5 }} />
+        <Skeleton variant="text" width="40%" height={16} />
+      </Box>
+    </Box>
+    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      <Skeleton variant="circular" width={40} height={40} sx={{ mr: 2 }} />
+      <Box sx={{ flex: 1 }}>
+        <Skeleton variant="text" width="50%" height={20} sx={{ mb: 0.5 }} />
+        <Skeleton variant="text" width="30%" height={16} />
+      </Box>
+    </Box>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Skeleton variant="circular" width={40} height={40} sx={{ mr: 2 }} />
+      <Box sx={{ flex: 1 }}>
+        <Skeleton variant="text" width="55%" height={20} sx={{ mb: 0.5 }} />
+        <Skeleton variant="text" width="35%" height={16} />
+      </Box>
+    </Box>
+  </Box>
+);
 
-export default function PopularCard() {
-  return (
-    <Card>
-      <CardContent>
-        <Grid container spacing={gridSpacing}>
-          <Grid size={12}>
-            <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-              <Grid size="grow">
-                <Skeleton variant="rectangular" height={20} />
-              </Grid>
-              <Grid>
-                <Skeleton variant="rectangular" height={20} width={20} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid size={12}>
-            <Skeleton variant="rectangular" height={150} />
-          </Grid>
-          <Grid size={12}>
-            <Grid container spacing={1}>
-              <Grid size={12}>
-                <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Grid size={6}>
-                    <Skeleton variant="rectangular" height={20} />
-                  </Grid>
-                  <Grid size={6}>
-                    <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Grid size="grow">
-                        <Skeleton variant="rectangular" height={20} />
-                      </Grid>
-                      <Grid>
-                        <Skeleton variant="rectangular" height={16} width={16} />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid size={6}>
-                <Skeleton variant="rectangular" height={20} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid size={12}>
-            <Grid container spacing={1}>
-              <Grid size={12}>
-                <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Grid size={6}>
-                    <Skeleton variant="rectangular" height={20} />
-                  </Grid>
-                  <Grid size={6}>
-                    <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Grid size="grow">
-                        <Skeleton variant="rectangular" height={20} />
-                      </Grid>
-                      <Grid>
-                        <Skeleton variant="rectangular" height={16} width={16} />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid size={6}>
-                <Skeleton variant="rectangular" height={20} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid size={12}>
-            <Grid container spacing={1}>
-              <Grid size={12}>
-                <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Grid size={6}>
-                    <Skeleton variant="rectangular" height={20} />
-                  </Grid>
-                  <Grid size={6}>
-                    <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Grid size="grow">
-                        <Skeleton variant="rectangular" height={20} />
-                      </Grid>
-                      <Grid>
-                        <Skeleton variant="rectangular" height={16} width={16} />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid size={6}>
-                <Skeleton variant="rectangular" height={20} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid size={12}>
-            <Grid container spacing={1}>
-              <Grid size={12}>
-                <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Grid size={6}>
-                    <Skeleton variant="rectangular" height={20} />
-                  </Grid>
-                  <Grid size={6}>
-                    <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Grid size="grow">
-                        <Skeleton variant="rectangular" height={20} />
-                      </Grid>
-                      <Grid>
-                        <Skeleton variant="rectangular" height={16} width={16} />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid size={6}>
-                <Skeleton variant="rectangular" height={20} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid size={12}>
-            <Grid container spacing={1}>
-              <Grid size={12}>
-                <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Grid size={6}>
-                    <Skeleton variant="rectangular" height={20} />
-                  </Grid>
-                  <Grid size={6}>
-                    <Grid container spacing={gridSpacing} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Grid size="grow">
-                        <Skeleton variant="rectangular" height={20} />
-                      </Grid>
-                      <Grid>
-                        <Skeleton variant="rectangular" height={16} width={16} />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid size={6}>
-                <Skeleton variant="rectangular" height={20} />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </CardContent>
-      <CardContent sx={{ p: 1.25, display: 'flex', pt: 0, justifyContent: 'center' }}>
-        <Skeleton variant="rectangular" height={25} width={75} />
-      </CardContent>
-    </Card>
-  );
-}
+export default SkeletonPopularCard; 

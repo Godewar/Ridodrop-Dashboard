@@ -3,12 +3,13 @@ import { Suspense } from 'react';
 // project imports
 import Loader from './Loader';
 
-export default function Loadable(Component) {
-  const WrappedComponent = (props) => (
+// ==============================|| LOADABLE - LAZY LOADING ||============================== //
+
+const Loadable = (Component) => (props) =>
+  (
     <Suspense fallback={<Loader />}>
       <Component {...props} />
     </Suspense>
   );
 
-  return WrappedComponent;
-}
+export default Loadable; 
