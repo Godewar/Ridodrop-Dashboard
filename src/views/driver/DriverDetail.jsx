@@ -53,6 +53,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import DescriptionIcon from '@mui/icons-material/Description';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DownloadIcon from '@mui/icons-material/Download';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 // Dummy data for demonstration
 const dummyDrivers = [
@@ -398,7 +399,9 @@ const dummyDrivers = [
       aadharFront: 'aadhar_front_amit.pdf',
       aadharBack: 'aadhar_back_amit.pdf',
       panCard: 'pan_card_amit.pdf',
-      drivingLicense: 'driving_license_amit.pdf'
+      drivingLicense: 'driving_license_amit.pdf',
+      bankPassbook: 'bank_passbook_amit.pdf',
+      vehicleRcFront: 'vehicle_rc_front_amit.pdf'
     }
   }
 ];
@@ -409,7 +412,7 @@ const vehicleTypes = [
   { label: 'Truck', icon: <LocalShippingIcon /> }
 ];
 
-const DriverDetail = () => {
+export default function DriverDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const driver = dummyDrivers.find((d) => d.id === id) || dummyDrivers[0];
@@ -423,6 +426,12 @@ const DriverDetail = () => {
   const [removeDialog, setRemoveDialog] = useState(false);
   const [removeAmount, setRemoveAmount] = useState('');
   const [documentDialog, setDocumentDialog] = useState({ open: false, document: null });
+  const [documents, setDocuments] = React.useState({
+    passbook: null,
+    rcFront: null,
+    rcBack: null,
+    insurance: null,
+  });
 
   const handleAddAmount = () => {
     const amt = parseFloat(addAmount);
@@ -472,6 +481,10 @@ const DriverDetail = () => {
 
   const handleDocumentClose = () => {
     setDocumentDialog({ open: false, document: null });
+  };
+
+  const handleDocChange = (key, file) => {
+    setDocuments(prev => ({ ...prev, [key]: file }));
   };
 
   return (
@@ -615,7 +628,10 @@ const DriverDetail = () => {
         {/* Performance Stats Cards */}
         <Grid container spacing={3} sx={{ mt: 1 }}>
           <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ borderRadius: 3, boxShadow: 3, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
+            <Card
+              sx={{ borderRadius: 3, boxShadow: 3, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white', cursor: 'pointer', transition: 'transform 0.15s', '&:hover': { transform: 'scale(1.03)', boxShadow: 6 } }}
+              onClick={() => navigate('/orders/list/all')}
+            >
               <CardContent sx={{ textAlign: 'center', p: 3 }}>
                 <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
                   {driver.totalOrders}
@@ -627,7 +643,10 @@ const DriverDetail = () => {
             </Card>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ borderRadius: 3, boxShadow: 3, background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', color: 'white' }}>
+            <Card
+              sx={{ borderRadius: 3, boxShadow: 3, background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', color: 'white', cursor: 'pointer', transition: 'transform 0.15s', '&:hover': { transform: 'scale(1.03)', boxShadow: 6 } }}
+              onClick={() => navigate('/orders/list/completed')}
+            >
               <CardContent sx={{ textAlign: 'center', p: 3 }}>
                 <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
                   {driver.completedOrders}
@@ -663,6 +682,11 @@ const DriverDetail = () => {
             </Card>
           </Grid>
         </Grid>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+          <Button variant="outlined" color="primary" sx={{ fontWeight: 600, borderRadius: 2 }} onClick={() => navigate('/driver-orders/summary')}>
+            View All Orders
+          </Button>
+        </Box>
 
         {/* Current Order Card */}
         {driver.currentOrder && (
@@ -879,7 +903,178 @@ const DriverDetail = () => {
                   </Box>
                 </Box>
               </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Box sx={{ 
+                  p: 2, 
+                  border: '1px solid', 
+                  borderColor: 'divider', 
+                  borderRadius: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  bgcolor: 'background.paper',
+                  '&:hover': { bgcolor: 'grey.50' }
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                      Bank Passbook
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {driver.documents.bankPassbook}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.bankPassbook)}
+                      sx={{ mr: 1 }}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Box sx={{ 
+                  p: 2, 
+                  border: '1px solid', 
+                  borderColor: 'divider', 
+                  borderRadius: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  bgcolor: 'background.paper',
+                  '&:hover': { bgcolor: 'grey.50' }
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                      Vehicle RC Front
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {driver.documents.vehicleRcFront}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.vehicleRcFront)}
+                      sx={{ mr: 1 }}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Box sx={{ 
+                  p: 2, 
+                  border: '1px solid', 
+                  borderColor: 'divider', 
+                  borderRadius: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  bgcolor: 'background.paper',
+                  '&:hover': { bgcolor: 'grey.50' }
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                      Vehicle RC Back
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {driver.documents.drivingLicense}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.vehicleRcBack)}
+                      sx={{ mr: 1 }}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Box sx={{ 
+                  p: 2, 
+                  border: '1px solid', 
+                  borderColor: 'divider', 
+                  borderRadius: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  bgcolor: 'background.paper',
+                  '&:hover': { bgcolor: 'grey.50' }
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                      Vehicle Image Front
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {driver.documents.vehicleImageFront}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.vehicleRcFront)}
+                      sx={{ mr: 1 }}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Box sx={{ 
+                  p: 2, 
+                  border: '1px solid', 
+                  borderColor: 'divider', 
+                  borderRadius: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  bgcolor: 'background.paper',
+                  '&:hover': { bgcolor: 'grey.50' }
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                      Vehicle Image Back
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {driver.documents.vehicleRcBack}
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.vehicleImageFront)}
+                      sx={{ mr: 1 }}
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Grid>
             </Grid>
+            
           </CardContent>
         </Card>
 
@@ -1191,6 +1386,4 @@ const DriverDetail = () => {
       </Container>
     </Box>
   );
-};
-
-export default DriverDetail; 
+}; 

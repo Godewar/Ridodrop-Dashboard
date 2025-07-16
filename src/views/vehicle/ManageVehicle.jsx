@@ -4,6 +4,7 @@ import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ElectricRickshawIcon from '@mui/icons-material/ElectricRickshaw';
+import { useNavigate } from 'react-router-dom';
 
 const vehicleTypes = [
   { label: '2W', icon: <DirectionsBikeIcon fontSize="medium" /> },
@@ -22,6 +23,7 @@ const subTypeOptions = {
 const ManageVehicle = () => {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [subTypeIdx, setSubTypeIdx] = useState(0);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     setSubTypeIdx(0);
@@ -84,7 +86,10 @@ const ManageVehicle = () => {
                             color: subIdx === subTypeIdx ? 'primary.main' : 'text.primary',
                             fontSize: 15,
                           }}
-                          onClick={() => setSubTypeIdx(subIdx)}
+                          onClick={() => {
+                            setSubTypeIdx(subIdx);
+                            navigate(`/vehicle/list/${encodeURIComponent(type.label)}/${encodeURIComponent(sub)}`);
+                          }}
                         >
                           {sub}
                         </Box>

@@ -4,6 +4,7 @@ import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ElectricRickshawIcon from '@mui/icons-material/ElectricRickshaw';
+import { useNavigate } from 'react-router-dom';
 
 const vehicleTypes = [
   { label: '2W', icon: <DirectionsBikeIcon fontSize="medium" /> },
@@ -15,19 +16,32 @@ const vehicleTypes = [
 const subTypeOptions = {
   '2W': ['Bike', 'Scooter', 'Electric Bike'],
   '3W': ['Petrol', 'Diesel', 'Electric'],
-  'Truck': ['Petrol', 'Diesel'],
+  'Truck': ['Diesel'],
   'E-Loader': ['E-Loader'],
 };
+
+// Truck varieties for Diesel
+const truckVarieties = [
+  'Tata ACE',
+  '8 Feet',
+  '9 Feet',
+  'TATA 407',
+  '14 Feet',
+  '17 Feet',
+];
 
 const ManageRate = () => {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [subTypeIdx, setSubTypeIdx] = useState(0);
+  const [truckVarietyIdx, setTruckVarietyIdx] = useState(0);
+  const navigate = useNavigate();
   const selectedType = vehicleTypes[selectedIdx].label;
   const subTypes = subTypeOptions[selectedType];
 
   // Reset subType index when vehicle type changes
   React.useEffect(() => {
     setSubTypeIdx(0);
+    setTruckVarietyIdx(0);
   }, [selectedIdx]);
 
   return (
@@ -67,30 +81,72 @@ const ManageRate = () => {
                   {selectedIdx === idx && (
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, ml: 2, position: 'relative', zIndex: 1 }}>
                       {subTypeOptions[type.label].map((sub, subIdx) => (
-                        <Box
-                          key={sub}
-                          sx={{
-                            bgcolor: 'white',
-                            borderRadius: 2,
-                            boxShadow: subIdx === subTypeIdx ? 4 : 1,
-                            border: subIdx === subTypeIdx ? '2px solid #1976d2' : '1px solid #eee',
-                            transition: 'all 0.2s',
-                            minWidth: 90,
-                            minHeight: 36,
-                            px: 2,
-                            py: 1.5,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            fontWeight: subIdx === subTypeIdx ? 700 : 400,
-                            color: subIdx === subTypeIdx ? 'primary.main' : 'text.primary',
-                            fontSize: 15,
-                          }}
-                          onClick={() => setSubTypeIdx(subIdx)}
-                        >
-                          {sub}
-                        </Box>
+                        <React.Fragment key={sub}>
+                          <Box
+                            sx={{
+                              bgcolor: 'white',
+                              borderRadius: 2,
+                              boxShadow: subIdx === subTypeIdx ? 4 : 1,
+                              border: subIdx === subTypeIdx ? '2px solid #1976d2' : '1px solid #eee',
+                              transition: 'all 0.2s',
+                              minWidth: 90,
+                              minHeight: 36,
+                              px: 2,
+                              py: 1.5,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              cursor: 'pointer',
+                              fontWeight: subIdx === subTypeIdx ? 700 : 400,
+                              color: subIdx === subTypeIdx ? 'primary.main' : 'text.primary',
+                              fontSize: 15,
+                            }}
+                            onClick={() => {
+                              setSubTypeIdx(subIdx);
+                              if (type.label === 'Truck' && sub === 'Diesel') {
+                                // Do not navigate yet, wait for variety click
+                              } else {
+                                navigate(`/price/add/${encodeURIComponent(type.label)}/${encodeURIComponent(sub)}`);
+                              }
+                            }}
+                          >
+                            {sub}
+                          </Box>
+                          {/* If Truck/Diesel is selected, show truck varieties */}
+                          {type.label === 'Truck' && sub === 'Diesel' && subIdx === subTypeIdx && (
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 2, mt: 1 }}>
+                              {truckVarieties.map((variety, vIdx) => (
+                                <Box
+                                  key={variety}
+                                  sx={{
+                                    bgcolor: 'white',
+                                    borderRadius: 2,
+                                    boxShadow: vIdx === truckVarietyIdx ? 4 : 1,
+                                    border: vIdx === truckVarietyIdx ? '2px solid #1976d2' : '1px solid #eee',
+                                    transition: 'all 0.2s',
+                                    minWidth: 120,
+                                    minHeight: 36,
+                                    px: 2,
+                                    py: 1.5,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                    fontWeight: vIdx === truckVarietyIdx ? 700 : 400,
+                                    color: vIdx === truckVarietyIdx ? 'primary.main' : 'text.primary',
+                                    fontSize: 15,
+                                  }}
+                                  onClick={() => {
+                                    setTruckVarietyIdx(vIdx);
+                                    navigate(`/price/add/Truck/${encodeURIComponent(variety)}`);
+                                  }}
+                                >
+                                  {variety}
+                                </Box>
+                              ))}
+                            </Box>
+                          )}
+                        </React.Fragment>
                       ))}
                     </Box>
                   )}

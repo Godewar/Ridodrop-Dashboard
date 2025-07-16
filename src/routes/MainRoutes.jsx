@@ -6,6 +6,13 @@ import Loadable from 'ui-component/Loadable';
 import AddAdmin from './AddAdmin';
 import AlllAdmins from './AlllAdmins';
 // import AddDriverSafety from './AddDriverSafety';
+import AddPrice from '../views/price/AddPrice';
+import VehicleList from '../views/vehicle/VehicleList';
+import OrderAnalytics from '../views/order/OrderAnalytics';
+import OrdersList from '../views/order/OrdersList';
+import ServiceCityStatus from '../views/service/ServiceCityStatus';
+import AppSetting from '../views/app/AppSetting';
+import AppSettingDetail from '../views/app/AppSettingDetail';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -94,12 +101,24 @@ const MainRoutes = {
       element: <DriverDetail />
     },
     {
+      path: 'driver/details/:regNo',
+      element: <DriverDetail />
+    },
+    {
       path: 'vehicles',
       element: <ManageVehicle />
     },
     {
+      path: 'vehicle/list/:vehicleType/:subType',
+      element: <VehicleList />
+    },
+    {
       path: 'rates',
       element: <ManageRate />
+    },
+    {
+      path: 'price/add/:vehicleType/:subType',
+      element: <AddPrice />
     },
     {
       path: 'users',
@@ -132,6 +151,26 @@ const MainRoutes = {
     {
       path: 'manage-orders',
       element: <ManageOrder />
+    },
+    {
+      path: 'order-analytics',
+      element: <OrderAnalytics />
+    },
+    {
+      path: 'orders/list/:filterType',
+      element: <OrdersList />
+    },
+    {
+      path: 'service/city/:vehicleType/:subType',
+      element: <ServiceCityStatus />
+    },
+    {
+      path: 'app-setting',
+      element: <AppSetting />
+    },
+    {
+      path: 'app-setting/:appType',
+      element: <AppSettingDetail />
     },
     // {
     //   path: 'typography',
