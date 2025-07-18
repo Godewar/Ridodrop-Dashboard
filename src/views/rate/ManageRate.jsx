@@ -82,25 +82,25 @@ const ManageRate = () => {
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, ml: 2, position: 'relative', zIndex: 1 }}>
                       {subTypeOptions[type.label].map((sub, subIdx) => (
                         <React.Fragment key={sub}>
-                          <Box
-                            sx={{
-                              bgcolor: 'white',
-                              borderRadius: 2,
-                              boxShadow: subIdx === subTypeIdx ? 4 : 1,
-                              border: subIdx === subTypeIdx ? '2px solid #1976d2' : '1px solid #eee',
-                              transition: 'all 0.2s',
-                              minWidth: 90,
-                              minHeight: 36,
-                              px: 2,
-                              py: 1.5,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              cursor: 'pointer',
-                              fontWeight: subIdx === subTypeIdx ? 700 : 400,
-                              color: subIdx === subTypeIdx ? 'primary.main' : 'text.primary',
-                              fontSize: 15,
-                            }}
+                        <Box
+                          sx={{
+                            bgcolor: 'white',
+                            borderRadius: 2,
+                            boxShadow: subIdx === subTypeIdx ? 4 : 1,
+                            border: subIdx === subTypeIdx ? '2px solid #1976d2' : '1px solid #eee',
+                            transition: 'all 0.2s',
+                            minWidth: 90,
+                            minHeight: 36,
+                            px: 2,
+                            py: 1.5,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            fontWeight: subIdx === subTypeIdx ? 700 : 400,
+                            color: subIdx === subTypeIdx ? 'primary.main' : 'text.primary',
+                            fontSize: 15,
+                          }}
                             onClick={() => {
                               setSubTypeIdx(subIdx);
                               if (type.label === 'Truck' && sub === 'Diesel') {
@@ -109,9 +109,9 @@ const ManageRate = () => {
                                 navigate(`/price/add/${encodeURIComponent(type.label)}/${encodeURIComponent(sub)}`);
                               }
                             }}
-                          >
-                            {sub}
-                          </Box>
+                        >
+                          {sub}
+                        </Box>
                           {/* If Truck/Diesel is selected, show truck varieties */}
                           {type.label === 'Truck' && sub === 'Diesel' && subIdx === subTypeIdx && (
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, ml: 2, mt: 1 }}>

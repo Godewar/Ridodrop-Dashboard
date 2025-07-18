@@ -14,6 +14,7 @@ import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 
 // assets
 import { IconMenu2 } from '@tabler/icons-react';
+import RedLogo from 'assets/images/RED LOGO.svg';
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
@@ -30,8 +31,7 @@ export default function Header() {
       <Box sx={{ width: downMD ? 'auto' : 228, display: 'flex' }}>
         <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
           {/* <LogoSection /> */}
-
-          <h3>Ridodrop-Dashboard</h3>
+          <img src={RedLogo} alt="Ridodrop Logo" style={{ height: 28, width: 'auto', display: 'inline-block' }} />
         </Box>
         <Avatar
           variant="rounded"
@@ -55,9 +55,9 @@ export default function Header() {
       </Box>
 
       {/* header search */}
-      <SearchSection />
-      <Box sx={{ flexGrow: 1 }} />
-      <Box sx={{ flexGrow: 1 }} />
+      <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+        <SearchSection />
+      </Box>
 
       {/* notification */}
       <NotificationSection />

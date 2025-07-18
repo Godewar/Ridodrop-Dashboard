@@ -99,72 +99,141 @@ export default function Dashboard() {
   useEffect(() => { setLoading(false); }, []);
 
   return (
-    <Grid container spacing={gridSpacing} justifyContent="center">
-      <Grid item xs={12}>
-        <Typography variant="h3" sx={{ mb: 2, fontWeight: 700, color: 'primary.main', textAlign: 'center' }}>
-          Welcome to Your Dashboard
-        </Typography>
-        <Typography variant="subtitle1" sx={{ mb: 3, color: 'text.secondary', textAlign: 'center' }}>
-          Here’s a quick overview of your platform’s key stats and trends.
-        </Typography>
-      </Grid>
-      {cardData.map((card, idx) => (
-        <Grid item xs={12} sm={6} md={4} key={card.title + idx} sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Card
-            sx={{
-              background: card.bg,
-              color: card.color,
-              borderRadius: 4,
-              boxShadow: 6,
-              p: 2,
-              transition: 'transform 0.2s, box-shadow 0.2s',
-              '&:hover': {
-                transform: 'translateY(-8px) scale(1.04)',
-                boxShadow: 12
-              },
-              minHeight: 170,
-              minWidth: 280,
-              maxWidth: 340,
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'relative',
-              overflow: 'visible'
-            }}
-          >
-            <Tooltip title={card.tooltip} arrow>
-              <Avatar
+    <Grid container spacing={gridSpacing} justifyContent="center" sx={{
+      minHeight: '100vh',
+      background: '#f7f9ff',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      {/* Top Banner */}
+      {/* <Grid item xs={12} sx={{ mb: 3 }}>
+        <Box
+          sx={{
+            width: '100%',
+            borderRadius: 5,
+            p: { xs: 3, md: 6 },
+            background: 'linear-gradient(90deg, #1976d2 0%, #90caf9 100%)',
+            color: 'white',
+            boxShadow: '0 8px 32px 0 rgba(34, 139, 230, 0.18)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: 140,
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden',
+            '::after': {
+              content: '""',
+              position: 'absolute',
+              top: '-30%',
+              left: '-10%',
+              width: '120%',
+              height: '160%',
+              background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(25,118,210,0.04) 100%)',
+              zIndex: 1,
+            },
+          }}
+        >
+          <Box sx={{ mr: 4, display: { xs: 'none', md: 'block' }, zIndex: 2 }}>
+            <TrendingUpIcon sx={{ fontSize: 90, opacity: 0.18, color: '#fff' }} />
+          </Box>
+          <Box sx={{ zIndex: 2 }}>
+            <Typography variant="h2" sx={{ fontWeight: 900, mb: 1, letterSpacing: 1, color: '#303030', fontSize: { xs: 28, md: 40 } }}>
+              Welcome Ridodrop
+            </Typography>
+            <Typography variant="h4" sx={{ fontWeight: 700, mb: 1, color: '#303030', fontSize: { xs: 18, md: 28 } }}>
+              Your all-in-one platform for smart logistics, real-time analytics, and seamless growth.
+            </Typography>
+            <Typography variant="h5" sx={{ opacity: 0.97, fontWeight: 500, color: '#303030', fontSize: { xs: 15, md: 22 } }}>
+              Keep up the great work—track your stats, earnings, and more right here on your dashboard.
+            </Typography>
+          </Box>
+        </Box>
+      </Grid> */}
+      {/* 9 Cards in 3x3 grid */}
+      {[0, 1, 2].map(rowIdx => (
+        <Grid container item xs={12} spacing={gridSpacing} key={rowIdx} justifyContent="center">
+          {cardData.slice(rowIdx * 3, rowIdx * 3 + 3).map((card, idx) => (
+            <Grid item xs={12} sm={4} md={4} key={card.title + idx} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Card
                 sx={{
-                  bgcolor: card.color,
-                  color: '#fff',
-                  width: 64,
-                  height: 64,
-                  mb: 2,
-                  boxShadow: 3,
-                  border: '4px solid #fff',
-                  position: 'absolute',
-                  top: -32,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  zIndex: 2
+                  background: '#fff',
+                  color: '#303030',
+                  borderRadius: 4,
+                  boxShadow: 6,
+                  p: 2,
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  '&:hover': {
+                    transform: 'translateY(-12px) scale(1.06)',
+                    boxShadow: '0 8px 32px 0 rgba(34, 139, 230, 0.25)',
+                    filter: 'brightness(1.08)',
+                  },
+                  minHeight: 140,
+                  minWidth: 180,
+                  maxWidth: 220,
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'relative',
+                  overflow: 'visible',
+                  border: '2px solid #dfe7ff',
                 }}
               >
-                {card.icon}
-              </Avatar>
-            </Tooltip>
-            <CardContent sx={{ mt: 4, width: '100%', textAlign: 'center' }}>
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 1, color: card.color }}>
-                {card.title}
-              </Typography>
-              <Typography variant="h3" sx={{ fontWeight: 800, color: card.color, mb: 1 }}>
-                {card.value}
-              </Typography>
-            </CardContent>
-          </Card>
+                <CardContent sx={{ mt: 4, width: '100%', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  {/* Icon inside card */}
+                  <Box
+                    sx={{
+                      width: 56,
+                      height: 56,
+                      borderRadius: '50%',
+                      background: '#f7f9ff',
+                      boxShadow: '0 2px 8px 0 rgba(34,139,230,0.06)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      border: '2px solid #f0f1f6',
+                      filter: 'drop-shadow(0 1px 4px rgba(34, 139, 230, 0.08))',
+                      mb: 1.5,
+                    }}
+                  >
+                    <Avatar
+                      sx={{
+                        bgcolor: 'transparent',
+                        color: card.color,
+                        width: 36,
+                        height: 36,
+                        fontSize: 28,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {card.icon}
+                    </Avatar>
+                  </Box>
+                  <Typography variant="h5" sx={{ fontWeight: 700, mb: 1, color: '#303030', letterSpacing: 0.5, fontSize: 18 }}>
+                    {card.title}
+                  </Typography>
+                  <Typography variant="h3" sx={{ fontWeight: 800, color: '#303030', mb: 1, textShadow: '0 2px 8px rgba(34,139,230,0.08)', fontSize: 24 }}>
+                    {card.value}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       ))}
+      {/* Decorative wave divider */}
+      <Grid item xs={12} sx={{ width: '100%', p: 0, m: 0 }}>
+        <Box sx={{ width: '100%', overflow: 'hidden', lineHeight: 0, mb: -2 }}>
+          <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 60, display: 'block' }}>
+            <path fill="#38f9d7" fillOpacity="0.18" d="M0,32 C360,80 1080,0 1440,48 L1440,80 L0,80 Z" />
+            <path fill="#43e97b" fillOpacity="0.12" d="M0,48 C480,0 960,80 1440,32 L1440,80 L0,80 Z" />
+          </svg>
+        </Box>
+      </Grid>
     </Grid>
   );
 }

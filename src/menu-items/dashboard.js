@@ -94,6 +94,22 @@ const dashboard = {
       breadcrumbs: false
     },
     {
+      id: 'ticket-rise',
+      title: 'Ticket Rise',
+      type: 'item',
+      url: '/ticket-rise',
+      icon: icons.IconTools,
+      breadcrumbs: false
+    },
+    {
+      id: 'coupon-code',
+      title: 'Coupon Code',
+      type: 'item',
+      url: '/coupon-code',
+      icon: icons.IconCurrencyDollar,
+      breadcrumbs: false
+    },
+    {
       id: 'App-settings',
       title: 'App Settings',
       type: 'item',

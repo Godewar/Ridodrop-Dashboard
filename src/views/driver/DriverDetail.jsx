@@ -786,18 +786,32 @@ export default function DriverDetail() {
                     <Typography variant="caption" color="text.secondary">
                       {driver.documents.aadharFront}
                     </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('aadharFront', e.target.files[0])} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box>
+                  <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('aadharFront', e.target.files[0])} />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
                     <IconButton 
                       size="small" 
                       onClick={() => handleDocumentView(driver.documents.aadharFront)}
                       sx={{ mr: 1 }}
                     >
+                      
                       <VisibilityIcon />
                     </IconButton>
-                    <IconButton size="small">
-                      <DownloadIcon />
-                    </IconButton>
+                 
                   </Box>
                 </Box>
               </Grid>
@@ -820,17 +834,31 @@ export default function DriverDetail() {
                     <Typography variant="caption" color="text.secondary">
                       {driver.documents.aadharBack}
                     </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('aadharBack', e.target.files[0])} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box>
+                 
+                     <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('aadharBack', e.target.files[0])} />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
                     <IconButton 
                       size="small" 
                       onClick={() => handleDocumentView(driver.documents.aadharBack)}
                       sx={{ mr: 1 }}
                     >
+                      
                       <VisibilityIcon />
-                    </IconButton>
-                    <IconButton size="small">
-                      <DownloadIcon />
                     </IconButton>
                   </Box>
                 </Box>
@@ -854,17 +882,31 @@ export default function DriverDetail() {
                     <Typography variant="caption" color="text.secondary">
                       {driver.documents.panCard}
                     </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('panCard', e.target.files[0])} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box>
+                 
+                     <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('panCard', e.target.files[0])} />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
                     <IconButton 
                       size="small" 
                       onClick={() => handleDocumentView(driver.documents.panCard)}
                       sx={{ mr: 1 }}
                     >
+                      
                       <VisibilityIcon />
-                    </IconButton>
-                    <IconButton size="small">
-                      <DownloadIcon />
                     </IconButton>
                   </Box>
                 </Box>
@@ -883,22 +925,84 @@ export default function DriverDetail() {
                 }}>
                   <Box>
                     <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
-                      Driving License
+                      Driving License Front
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
-                      {driver.documents.drivingLicense}
+                      {driver.documents.drivingLicenseFront}
                     </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('drivingLicenseFront', e.target.files[0])} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box>
-                    <IconButton 
-                      size="small" 
-                      onClick={() => handleDocumentView(driver.documents.drivingLicense)}
-                      sx={{ mr: 1 }}
-                    >
-                      <VisibilityIcon />
+                   
+                     <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('drivingLicenseFront', e.target.files[0])} />
                     </IconButton>
                     <IconButton size="small">
                       <DownloadIcon />
+                    </IconButton>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.aadharFront)}
+                      sx={{ mr: 1 }}
+                    >
+                      
+                      <VisibilityIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Box sx={{ 
+                  p: 2, 
+                  border: '1px solid', 
+                  borderColor: 'divider', 
+                  borderRadius: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  bgcolor: 'background.paper',
+                  '&:hover': { bgcolor: 'grey.50' }
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                      Driving License Back
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {driver.documents.drivingLicenseBack}
+                    </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('drivingLicenseBack', e.target.files[0])} />
+                      </Button>
+                    </Box>
+                  </Box>
+                  <Box>
+                   
+                     <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('drivingLicenseBack', e.target.files[0])} />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.aadharFront)}
+                      sx={{ mr: 1 }}
+                    >
+                      
+                      <VisibilityIcon />
                     </IconButton>
                   </Box>
                 </Box>
@@ -922,17 +1026,31 @@ export default function DriverDetail() {
                     <Typography variant="caption" color="text.secondary">
                       {driver.documents.bankPassbook}
                     </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('bankPassbook', e.target.files[0])} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box>
+                  
+                     <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('bankPassbook', e.target.files[0])} />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
                     <IconButton 
                       size="small" 
                       onClick={() => handleDocumentView(driver.documents.bankPassbook)}
                       sx={{ mr: 1 }}
                     >
+                      
                       <VisibilityIcon />
-                    </IconButton>
-                    <IconButton size="small">
-                      <DownloadIcon />
                     </IconButton>
                   </Box>
                 </Box>
@@ -956,17 +1074,31 @@ export default function DriverDetail() {
                     <Typography variant="caption" color="text.secondary">
                       {driver.documents.vehicleRcFront}
                     </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('vehicleRcFront', e.target.files[0])} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box>
+                 
+                      <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('vehicleRcFront', e.target.files[0])} />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
                     <IconButton 
                       size="small" 
                       onClick={() => handleDocumentView(driver.documents.vehicleRcFront)}
                       sx={{ mr: 1 }}
                     >
+                      
                       <VisibilityIcon />
-                    </IconButton>
-                    <IconButton size="small">
-                      <DownloadIcon />
                     </IconButton>
                   </Box>
                 </Box>
@@ -988,19 +1120,33 @@ export default function DriverDetail() {
                       Vehicle RC Back
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
-                      {driver.documents.drivingLicense}
+                      {driver.documents.vehicleRcBack}
                     </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('vehicleRcBack', e.target.files[0])} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box>
+                 
+                      <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('vehicleRcBack', e.target.files[0])} />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
                     <IconButton 
                       size="small" 
                       onClick={() => handleDocumentView(driver.documents.vehicleRcBack)}
                       sx={{ mr: 1 }}
                     >
+                      
                       <VisibilityIcon />
-                    </IconButton>
-                    <IconButton size="small">
-                      <DownloadIcon />
                     </IconButton>
                   </Box>
                 </Box>
@@ -1024,17 +1170,31 @@ export default function DriverDetail() {
                     <Typography variant="caption" color="text.secondary">
                       {driver.documents.vehicleImageFront}
                     </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('vehicleImageFront', e.target.files[0])} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box>
-                    <IconButton 
-                      size="small" 
-                      onClick={() => handleDocumentView(driver.documents.vehicleRcFront)}
-                      sx={{ mr: 1 }}
-                    >
-                      <VisibilityIcon />
+                 
+                      <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('vehicleImageFront', e.target.files[0])} />
                     </IconButton>
                     <IconButton size="small">
                       <DownloadIcon />
+                    </IconButton>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.vehicleImageFront)}
+                      sx={{ mr: 1 }}
+                    >
+                      
+                      <VisibilityIcon />
                     </IconButton>
                   </Box>
                 </Box>
@@ -1056,19 +1216,129 @@ export default function DriverDetail() {
                       Vehicle Image Back
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
-                      {driver.documents.vehicleRcBack}
+                      {driver.documents.vehicleImageBack}
                     </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('vehicleImageBack', e.target.files[0])} />
+                      </Button>
+                    </Box>
                   </Box>
                   <Box>
-                    <IconButton 
-                      size="small" 
-                      onClick={() => handleDocumentView(driver.documents.vehicleImageFront)}
-                      sx={{ mr: 1 }}
-                    >
-                      <VisibilityIcon />
+                 
+                      <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('vehicleImageBack', e.target.files[0])} />
                     </IconButton>
                     <IconButton size="small">
                       <DownloadIcon />
+                    </IconButton>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.vehicleImageBack)}
+                      sx={{ mr: 1 }}
+                    >
+                      
+                      <VisibilityIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Box sx={{ 
+                  p: 2, 
+                  border: '1px solid', 
+                  borderColor: 'divider', 
+                  borderRadius: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  bgcolor: 'background.paper',
+                  '&:hover': { bgcolor: 'grey.50' }
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                      Vehicle Insurance
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {driver.documents.vehicleInsurance}
+                    </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('vehicleInsurance', e.target.files[0])} />
+                      </Button>
+                    </Box>
+                  </Box>
+                  <Box>
+                  
+                      <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('vehicleInsurance', e.target.files[0])} />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.vehicleInsurance)}
+                      sx={{ mr: 1 }}
+                    >
+                      
+                      <VisibilityIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} md={3}>
+                <Box sx={{ 
+                  p: 2, 
+                  border: '1px solid', 
+                  borderColor: 'divider', 
+                  borderRadius: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  bgcolor: 'background.paper',
+                  '&:hover': { bgcolor: 'grey.50' }
+                }}>
+                  <Box>
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                      Owner Selfie
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {driver.documents.ownerSelfie}
+                    </Typography>
+                    <Box sx={{ mt: 1, mb: 1, display: 'flex', gap: 1 }}>
+                      <Button size="small" color="success" variant="outlined">Approved</Button>
+                      <Button size="small" color="error" variant="outlined">Reject</Button>
+                      <Button size="small" color="primary" variant="outlined" component="label">
+                        Reupload
+                        <input type="file" hidden onChange={e => handleDocChange('ownerSelfie', e.target.files[0])} />
+                      </Button>
+                    </Box>
+                  </Box>
+                  <Box>
+                  
+                      <IconButton size="small" component="label">
+                      <UploadFileIcon />
+                      <input type="file" hidden onChange={e => handleDocChange('ownerSelfie', e.target.files[0])} />
+                    </IconButton>
+                    <IconButton size="small">
+                      <DownloadIcon />
+                    </IconButton>
+                    <IconButton 
+                      size="small" 
+                      onClick={() => handleDocumentView(driver.documents.ownerSelfie)}
+                      sx={{ mr: 1 }}
+                    >
+                      
+                      <VisibilityIcon />
                     </IconButton>
                   </Box>
                 </Box>

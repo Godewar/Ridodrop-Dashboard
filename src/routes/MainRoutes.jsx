@@ -13,6 +13,10 @@ import OrdersList from '../views/order/OrdersList';
 import ServiceCityStatus from '../views/service/ServiceCityStatus';
 import AppSetting from '../views/app/AppSetting';
 import AppSettingDetail from '../views/app/AppSettingDetail';
+import TicketRise from '../views/app/TicketRise';
+import CustomerTicketQueries from '../views/app/CustomerTicketQueries';
+import PartnerTicketQueries from '../views/app/PartnerTicketQueries';
+import CouponCode from '../views/app/CouponCode';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -171,6 +175,22 @@ const MainRoutes = {
     {
       path: 'app-setting/:appType',
       element: <AppSettingDetail />
+    },
+    {
+      path: 'ticket-rise',
+      element: <TicketRise />
+    },
+    {
+      path: 'ticket-rise/customer',
+      element: <CustomerTicketQueries />
+    },
+    {
+      path: 'ticket-rise/partner',
+      element: <PartnerTicketQueries />
+    },
+    {
+      path: 'coupon-code',
+      element: <CouponCode />
     },
     // {
     //   path: 'typography',
